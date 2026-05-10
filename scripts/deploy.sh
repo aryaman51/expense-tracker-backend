@@ -9,5 +9,5 @@ docker build -t tripspend-backend .
 
 docker run -d \
   --name tripspend-backend \
-  -p 5000:5000 \
+  -p 5000:3000 \
   tripspend-backend
