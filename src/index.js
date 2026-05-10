@@ -3,11 +3,11 @@ const trips = require("./routes/trips");
 const dashboard = require("./routes/dashboard");
 const expenses = require("./routes/expenses");
 const people = require("./routes/people");
-
+const app = express();
 app.use("/api/expenses", expenses);
 app.use("/api/people", people);
 
-const app = express();
+
 app.use(express.json());
 
 app.use("/api/trips", trips);
