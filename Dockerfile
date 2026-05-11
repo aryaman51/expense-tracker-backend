@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+COPY init.sql ./
 COPY src ./src
 
 EXPOSE 5000

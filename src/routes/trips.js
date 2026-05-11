@@ -12,19 +12,52 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM trips WHERE id=$1", [req.params.id]);
+    if (!result.rows.length) return res.status(404).json({ error: "Trip not found" });
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch trip" });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const { name, destination } = req.body;
-
     const result = await db.query(
       "INSERT INTO trips(name, destination) VALUES($1,$2) RETURNING *",
       [name, destination]
     );
-
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to create trip" });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, destination } = req.body;
+    const result = await db.query(
+      "UPDATE trips SET name=$1, destination=$2 WHERE id=$3 RETURNING *",
+      [name, destination, req.params.id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update trip" });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    await db.query("DELETE FROM trips WHERE id=$1", [req.params.id]);
+    res.json({ message: "Trip deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete trip" });
   }
 });
 
