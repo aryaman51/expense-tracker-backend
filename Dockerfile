@@ -6,6 +6,7 @@ RUN npm install
 
 COPY init.sql ./
 COPY src ./src
+COPY metrics ./metrics
 
 EXPOSE 5000
 CMD ["npm", "start"]

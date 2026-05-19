@@ -7,7 +7,7 @@ const trips = require("./routes/trips");
 const dashboard = require("./routes/dashboard");
 const expenses = require("./routes/expenses");
 const people = require("./routes/people");
-
+const client = require("../metrics/prometheus");
 const app = express();
 
 app.use(cors());
@@ -33,4 +33,13 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", async () => {
   await runMigrations();
   console.log(`Backend running on port ${PORT}`);
+});
+
+app.get("/metrics", async (req, res) => {
+  try {
+    res.set("Content-Type", client.register.contentType);
+    res.end(await client.register.metrics());
+  } catch (err) {
+    res.status(500).end(err);
+  }
 });
