@@ -2,6 +2,31 @@
 
 cd /home/ubuntu/app
 
+DB_HOST=$(aws ssm get-parameter \
+  --name "/tripspend/DB_HOST" \
+  --query "Parameter.Value" \
+  --output text \
+  --region ap-south-1)
+
+DB_USER=$(aws ssm get-parameter \
+  --name "/tripspend/DB_USER" \
+  --query "Parameter.Value" \
+  --output text \
+  --region ap-south-1)
+
+DB_PASSWORD=$(aws ssm get-parameter \
+  --name "/tripspend/DB_PASSWORD" \
+  --with-decryption \
+  --query "Parameter.Value" \
+  --output text \
+  --region ap-south-1)
+
+DB_NAME=$(aws ssm get-parameter \
+  --name "/tripspend/DB_NAME" \
+  --query "Parameter.Value" \
+  --output text \
+  --region ap-south-1)
+
 docker stop tripspend-backend || true
 docker rm tripspend-backend || true
 
