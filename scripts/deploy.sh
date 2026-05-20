@@ -1,15 +1,18 @@
 #!/bin/bash
+set -ex
 
 cd /home/ubuntu/app
 
 DB_HOST=$(aws ssm get-parameter \
   --name "/tripspend/DB_HOST" \
+  --with-decryption \
   --query "Parameter.Value" \
   --output text \
   --region ap-south-1)
 
 DB_USER=$(aws ssm get-parameter \
   --name "/tripspend/DB_USER" \
+  --with-decryption \
   --query "Parameter.Value" \
   --output text \
   --region ap-south-1)
@@ -23,6 +26,7 @@ DB_PASSWORD=$(aws ssm get-parameter \
 
 DB_NAME=$(aws ssm get-parameter \
   --name "/tripspend/DB_NAME" \
+  --with-decryption \
   --query "Parameter.Value" \
   --output text \
   --region ap-south-1)
