@@ -31,6 +31,10 @@ DB_NAME=$(aws ssm get-parameter \
   --output text \
   --region ap-south-1)
 
+echo "DB_HOST=$DB_HOST"
+echo "DB_USER=$DB_USER"
+echo "DB_NAME=$DB_NAME"
+
 docker stop tripspend-backend || true
 docker rm tripspend-backend || true
 
