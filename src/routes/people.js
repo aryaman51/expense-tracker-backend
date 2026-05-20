@@ -57,7 +57,7 @@ router.delete("/:id", async (req, res) => {
     res.json({ message: "Person deleted" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to delete person" });
+    res.status(500).json({ error: "can't delete person" });
   }
 });
 
