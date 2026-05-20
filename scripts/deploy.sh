@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-
+echo "NEW DEPLOY VERSION 12345"
 cd /home/ubuntu/app
 
 DB_HOST=$(aws ssm get-parameter \
